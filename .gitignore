@@ -3,3 +3,4 @@
 
 # general
 .idea/
+__pycache__/
