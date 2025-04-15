@@ -1,0 +1,34 @@
+services:
+  app:
+    build:
+      context: .
+    container_name: app
+    ports:
+      - "8000:8000"
+    environment:
+      MONGO_DB_HOST: ${MONGO_DB_HOST:-mongodb}
+      MONGO_DB_DATABASE: ${MONGO_DB_DATABASE:-tasks_db}
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    volumes:
+      - .:/fastapi
+
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_DB_HOST: ${MONGO_DB_HOST:-mongodb}
+      MONGO_DB_DATABASE: ${MONGO_DB_DATABASE:-tasks_db}
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: [ "CMD", "mongosh", "--eval", "db.adminCommand('ping')" ]
+      interval: 1s
+      timeout: 1s
+      retries: 3
+
+volumes:
+  mongodb_data:
