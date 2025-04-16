@@ -69,13 +69,17 @@ make lint
 
 ```
 .
-├── app/                 # Main application
-│   ├── api/             # Routers
-│   │   └── routers.py           # API views
-│   ├── core/             # Database models
-│   │   └── routers.py           # API views
-│   ├── serializers.py     # DRF serializers
-│   └── tasks.py           # Celery tasks
+├── app/                   # Main application
+│   ├── api/               # APIs
+│   │   └── routers.py     # API endpoints
+│   ├── core/              # Database engine
+│   │   ├── database.py    # DB engine initialization
+│   │   └── settings.py    # App settings
+│   ├── models/            # Data models
+│   │   └── task.py        # Task model
+│   ├── shemas/            # Pyndantic serialization schemas
+│   │   └── task.py        # Task schema
+│   └── main.py            # App entry point
 ├── tests/                 # Folder with unittests
 │   ├── conftest.py        # Pytest config
 │   └── test_routes.py     # Tests
